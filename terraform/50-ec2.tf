@@ -64,7 +64,7 @@ resource "aws_instance" "jenkins" {
     delete_on_termination = true
     encrypted = true
   }
- # user_data = file("setup.sh")
+  user_data = file("jenkins_setup.sh")
   tags = merge(local.common_tags,{
     Name = "jenkins-server"
   })
