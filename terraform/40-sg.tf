@@ -10,6 +10,14 @@ resource "aws_security_group" "alb" {
     protocol = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
+  ingress {
+    description = "http from internet"
+    from_port = 81
+    to_port = 81
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
   egress{
     description = "allow all outbound"
     from_port = 0
@@ -81,6 +89,14 @@ resource "aws_security_group" "jenkins" {
     to_port = 22
     protocol = "tcp"
     security_groups = [aws_security_group.bastion.id]
+  }
+
+  ingress {
+    description = "receive traffic from ALB only"
+    from_port = 8080
+    to_port = 8080
+    protocol = "tcp"
+    security_groups = [aws_security_group.alb.id]
   }
   egress{
     description = "allow all outbound"
