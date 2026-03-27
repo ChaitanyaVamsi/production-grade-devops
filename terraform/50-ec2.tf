@@ -38,6 +38,9 @@ resource "aws_instance" "app" {
   subnet_id = aws_subnet.private.id
   vpc_security_group_ids = [aws_security_group.app.id]
   associate_public_ip_address = false
+  #iam_instance_profile = aws_iam_instance_profile.bastion.name
+  # need more for terraform
+  iam_instance_profile = "bastion_profile"
   key_name = var.key_pair_name # if this is added we cannot ssh to this
   root_block_device {
     volume_type = "gp3"
@@ -50,6 +53,11 @@ resource "aws_instance" "app" {
     Name = "${local.common_name}-server"
   })
 }
+
+# resource "aws_iam_instance_profile" "bastion" {
+#   name = "bastion"
+#   role = "BastionTerraformAdmin"
+# }
 
 resource "aws_instance" "jenkins" {
   ami = data.aws_ami.ubuntu.id
