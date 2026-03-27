@@ -3,7 +3,8 @@
 apt update -y
 
 # Install required packages
-apt install -y fontconfig wget gnupg openjdk-21-jre
+sudo apt install openjdk-21-jre-headless -y  # version 21.0.10+7-1~24.04
+
 
 # Create keyrings directory if it doesn't exist
 mkdir -p /etc/apt/keyrings
