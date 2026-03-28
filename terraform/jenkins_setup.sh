@@ -1,12 +1,13 @@
 #!/bin/bash
+set -e
+
 # Update packages
-apt update -y
+apt-get update -y
 
 # Install required packages
-sudo apt install openjdk-21-jre-headless -y  # version 21.0.10+7-1~24.04
+apt-get install -y fontconfig openjdk-21-jre wget
 
-
-# Create keyrings directory if it doesn't exist
+# Create keyrings directory
 mkdir -p /etc/apt/keyrings
 
 # Add Jenkins key
@@ -16,16 +17,12 @@ wget -O /etc/apt/keyrings/jenkins-keyring.asc https://pkg.jenkins.io/debian-stab
 echo "deb [signed-by=/etc/apt/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/" \
   > /etc/apt/sources.list.d/jenkins.list
 
-# Update package index
-apt update -y
+# Update again
+apt-get update -y
 
 # Install Jenkins
-apt install -y jenkins
+apt-get install -y jenkins
 
-# Start and enable Jenkins service
+# Start and enable Jenkins
 systemctl enable jenkins
 systemctl start jenkins
-
-# Optional: verify installation
-java -version
-systemctl status jenkins
