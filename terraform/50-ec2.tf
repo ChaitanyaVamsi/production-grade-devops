@@ -1,7 +1,6 @@
 data "aws_ami" "ubuntu" {
   most_recent = true
-  owners      = ["099720109477"]  # Canonical's official account
-
+  owners      = ["099720109477"]
   filter {
     name   = "name"
     values = ["ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-*"]
@@ -12,8 +11,8 @@ data "aws_ami" "ubuntu" {
     values = ["hvm"]
   }
 }
-# Bastion host
 
+# Bastion host
 resource "aws_instance" "bastion" {
   ami = data.aws_ami.ubuntu.id
   instance_type = var.bastion_instance
@@ -31,7 +30,6 @@ resource "aws_instance" "bastion" {
  { Name="${local.common_name}-bastion"})
 
 }
-
 resource "aws_instance" "app" {
   ami = data.aws_ami.ubuntu.id
   instance_type = var.app_instance
@@ -48,7 +46,7 @@ resource "aws_instance" "app" {
     delete_on_termination = true
     encrypted = true
   }
-  user_data = file("setup.sh")
+  user_data = file("docker_setup.sh")
   tags = merge(local.common_tags,{
     Name = "${local.common_name}-server"
   })
