@@ -290,20 +290,6 @@ The app exports several useful metrics through `prom-client`, including:
 
 This shows observability at both the HTTP and realtime socket layer, which is valuable for a chat application.
 
-## App Used
-
-The application used for this assignment is a realtime chat app built with:
-
-- Node.js
-- Express
-- Socket.IO
-
-The app serves the frontend, handles realtime messaging, and exposes Prometheus metrics from the same service.
-
-Main application file:
-
-- [realtime-chat-app/app/server.js](./realtime-chat-app/app/server.js)
-
 ## Screenshots
 
 ### AWS Infrastructure
