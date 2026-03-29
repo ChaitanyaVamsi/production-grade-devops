@@ -64,29 +64,11 @@ At a high level:
 
 ## Architecture
 
-```text
-Developer
-   |
-   v
-GitHub repository
-   |
-   v
-GitHub webhook
-   |
-   v
-Jenkins pipeline
-lint -> test -> docker build -> push to ECR -> deploy
-   |
-   v
-Application EC2
-Docker Compose stack:
-frontend + nginx + prometheus + grafana
-   |
-   v
-Application Load Balancer
-80 -> chat app
-81 -> Jenkins
-```
+### AWS infrastructure
+![AWS Architecture](docs/images/aws_infrastructure_diagram.svg)
+
+### CI/CD pipeline
+![CI/CD Pipeline](docs/images/cicd_pipeline_diagram.svg)
 
 ## 1. Infrastructure as Code
 
